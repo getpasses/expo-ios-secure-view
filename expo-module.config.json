@@ -1,0 +1,17 @@
+{
+  "platforms": [
+    "apple",
+    "android",
+    "web"
+  ],
+  "apple": {
+    "modules": [
+      "ExpoIosSecureViewModule"
+    ]
+  },
+  "android": {
+    "modules": [
+      "expo.modules.iossecureview.ExpoIosSecureViewModule"
+    ]
+  }
+}
