@@ -59,12 +59,20 @@ final class ExpoIosSecureView: ExpoView {
         ])
     }
     
-    override func addSubview(_ view: UIView) {
+    override func insertSubview(_ view: UIView, at index: Int) {
         if view !== secureContentFrame {
-            self.secureMode=true
+            self.secureMode = true
             setupView(contentView: view)
         } else {
-            super.addSubview(view)
+            super.insertSubview(view, at: index)
         }
+    }
+  
+    override func unmountChildComponentView(_ childComponentView: UIView, index: Int) {  
+        if childComponentView.superview !== self {
+            childComponentView.removeFromSuperview()
+            super.insertSubview(childComponentView, at: index)
+        }
+        super.unmountChildComponentView(childComponentView, index: index)
     }
 }
