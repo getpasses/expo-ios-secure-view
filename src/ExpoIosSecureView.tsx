@@ -1,14 +1,20 @@
-import { requireNativeView } from 'expo';
-import * as React from 'react';
+import { requireNativeView } from "expo"
+import * as React from "react"
+import { Platform } from "react-native"
 
-import { ExpoIosSecureViewProps } from './ExpoIosSecureView.types';
-import { Platform } from 'react-native';
+import { ExpoIosSecureViewProps } from "./ExpoIosSecureView.types"
 
-const NativeView: React.ComponentType<React.PropsWithChildren<ExpoIosSecureViewProps>> =
-  requireNativeView('ExpoIosSecureView');
+export default function ExpoIosSecureView({
+  children,
+  secureMode,
+  ...props
+}: React.PropsWithChildren<ExpoIosSecureViewProps>) {
+  if (!secureMode || Platform.OS === "android") {
+    return children
+  }
+  const NativeView: React.ComponentType<
+    React.PropsWithChildren<ExpoIosSecureViewProps>
+  > = requireNativeView("ExpoIosSecureView")
 
-export default function ExpoIosSecureView({ children, secureMode,...props }: React.PropsWithChildren<ExpoIosSecureViewProps>) {
-  return Platform.OS === "android"||!secureMode
-    ? children
-    : <NativeView {...props}>{children}</NativeView>;
+  return <NativeView {...props}>{children}</NativeView>
 }
