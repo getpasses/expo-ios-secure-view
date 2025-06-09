@@ -12,6 +12,7 @@ export default function ExpoIosSecureView({
   if (!secureMode || Platform.OS === "android") {
     return children
   }
+
   const NativeView: React.ComponentType<
     React.PropsWithChildren<ExpoIosSecureViewProps>
   > = requireNativeView("ExpoIosSecureView")

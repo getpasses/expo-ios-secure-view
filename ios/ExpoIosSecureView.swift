@@ -59,6 +59,7 @@ final class ExpoIosSecureView: ExpoView {
         ])
     }
 
+  #if RCT_NEW_ARCH_ENABLED
     override func insertSubview(_ view: UIView, at index: Int) {
         if view !== secureContentFrame {
             self.secureMode = true
@@ -75,4 +76,18 @@ final class ExpoIosSecureView: ExpoView {
         }
         super.unmountChildComponentView(childComponentView, index: index)
     }
+  #else
+    override func addSubview(_ view: UIView) {
+        print("[SecureView] addSubview called with: \(type(of: view))")
+
+        if view !== secureContentFrame {
+            print("[SecureView] addSubview: setting up secure content")
+            self.secureMode = true
+            setupView(contentView: view)
+        } else {
+            print("[SecureView] addSubview: adding secureContentFrame directly")
+            super.addSubview(view)
+        }
+    }
+  #endif
 }
